@@ -1,0 +1,35 @@
+import numpy as np
+
+# 1. THE DATA: Input (x) and the 'True' Answer (y)
+# We want the AI to figure out that y = 2 * x
+x_train = np.array([1, 2, 3, 4, 5], dtype=float)
+y_train = np.array([2, 4, 6, 8, 10], dtype=float)
+
+# 2. THE MODEL: Start with a random guess for the weight
+weight = np.random.randn() 
+learning_rate = 0.01  # How big of a 'step' the AI takes to learn
+
+print(f"Starting weight: {weight:.4f}")
+
+# 3. THE LEARNING LOOP (The Learning Curve)
+epochs = 100 # How many times the AI looks at the data
+for epoch in range(epochs):
+    for i in range(len(x_train)):
+        # Predict: y = weight * x
+        prediction = weight * x_train[i]
+        
+        # Calculate Error (Loss)
+        error = prediction - y_train[i]
+        
+        # Update Weight: Gradient Descent
+        # If error is positive, weight is too high; if negative, too low.
+        weight = weight - (learning_rate * error * x_train[i])
+    
+    # Print progress every 20 steps
+    if epoch % 20 == 0:
+        print(f"Epoch {epoch}: Current weight is {weight:.4f}")
+
+# 4. TESTING THE AI
+test_val = 10
+print(f"\nTraining Finished!")
+print(f"AI Prediction for {test_val}: {test_val * weight:.2f} (Should be 20)")
